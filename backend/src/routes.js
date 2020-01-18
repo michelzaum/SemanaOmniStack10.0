@@ -1,16 +1,12 @@
 const { Router } = require('express');
-const axios = require('axios');
+const DevController = require('./controllers/DevController');
+const SearchController = require('./controllers/SearchController');;
 
 const routes = Router();
 
-routes.post('/devs', async (request, response) => {
-    const { github_username } = request.body;
+routes.get('/devs', DevController.index);
+routes.post('/devs', DevController.create);
 
-    const apiResponse = await axios.get(`https://api.github.com/users/${github_username}`);
-
-    console.log(apiResponse.data);
-    //A RESPOSTA DO SERVIDOR SERÁ UM JSON.
-    return response.json({message: 'Hello world'});
-});
+routes.get('/search', SearchController.index);
 
 module.exports = routes;
